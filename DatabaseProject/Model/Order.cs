@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DatabaseProject.Model
 {
@@ -22,5 +19,6 @@ namespace DatabaseProject.Model
         public string ShipRegion { get; set; }
         public string ShipPostalCode { get; set; }
         public string ShipCountry { get; set; }
+        public List<OrderDetails> Products { get; set; }
     }
 }

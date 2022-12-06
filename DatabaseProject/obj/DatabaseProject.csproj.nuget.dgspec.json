@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\_projs\\DatabaseProject\\DatabaseProject\\DatabaseProject\\DatabaseProject.csproj": {}
+    "C:\\_projs\\DatabaseProject\\DatabaseProject\\DatabaseProject.csproj": {}
   },
   "projects": {
-    "C:\\_projs\\DatabaseProject\\DatabaseProject\\DatabaseProject\\DatabaseProject.csproj": {
+    "C:\\_projs\\DatabaseProject\\DatabaseProject\\DatabaseProject.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\_projs\\DatabaseProject\\DatabaseProject\\DatabaseProject\\DatabaseProject.csproj",
+        "projectUniqueName": "C:\\_projs\\DatabaseProject\\DatabaseProject\\DatabaseProject.csproj",
         "projectName": "DatabaseProject",
-        "projectPath": "C:\\_projs\\DatabaseProject\\DatabaseProject\\DatabaseProject\\DatabaseProject.csproj",
+        "projectPath": "C:\\_projs\\DatabaseProject\\DatabaseProject\\DatabaseProject.csproj",
         "packagesPath": "C:\\Users\\a.lira\\.nuget\\packages\\",
-        "outputPath": "C:\\_projs\\DatabaseProject\\DatabaseProject\\DatabaseProject\\obj\\",
+        "outputPath": "C:\\_projs\\DatabaseProject\\DatabaseProject\\obj\\",
         "projectStyle": "PackageReference",
         "skipContentFileWrite": true,
         "fallbackFolders": [

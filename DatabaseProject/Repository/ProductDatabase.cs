@@ -1,12 +1,9 @@
-﻿using DatabaseProject.Model;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Data.SqlClient;
+﻿using System;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Data.SqlClient;
+using DatabaseProject.Model;
+using DatabaseProject.Utils;
+using System.Collections.ObjectModel;
 
 namespace DatabaseProject.Repository
 {
@@ -35,12 +32,12 @@ namespace DatabaseProject.Repository
                         {
                             Product product = new Product
                             {
-                                ProductID = queryResponse.GetInt32(0),
-                                ProductName = queryResponse.GetString(1),
-                                CategoryName = queryResponse.GetString(2),
-                                QuantityPerUnit = queryResponse.GetString(3),
-                                UnitPrice = queryResponse.GetDecimal(4),
-                                UnitsInStock = queryResponse.GetInt16(5)
+                                ProductID = NullChecker.CheckIntField(queryResponse, 0),
+                                ProductName = NullChecker.CheckStringField(queryResponse, 1),
+                                CategoryName = NullChecker.CheckStringField(queryResponse, 2),
+                                QuantityPerUnit = NullChecker.CheckStringField(queryResponse, 3),
+                                UnitPrice = NullChecker.CheckDecimalField(queryResponse, 4),
+                                UnitsInStock = NullChecker.CheckIntField(queryResponse, 5)
                             };
 
                             productsList.Add(product);

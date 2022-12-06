@@ -1,8 +1,9 @@
-﻿using DatabaseProject.Model;
-using System;
-using System.Collections.ObjectModel;
-using System.Data.SqlClient;
+﻿using System;
 using System.Diagnostics;
+using System.Data.SqlClient;
+using DatabaseProject.Model;
+using DatabaseProject.Utils;
+using System.Collections.ObjectModel;
 
 namespace DatabaseProject.Repository
 {
@@ -96,22 +97,19 @@ namespace DatabaseProject.Repository
 
                         while (queryResponse.Read())
                         {
-                            string customerRegion = queryResponse.IsDBNull(6) ? null : queryResponse.GetString(6);
-                            string customerFax = queryResponse.IsDBNull(10) ? null : queryResponse.GetString(10);
-
                             Customer customer = new Customer
                             {
-                                CustomerID = queryResponse.GetString(0),
-                                CompanyName = queryResponse.GetString(1),
-                                ContactName = queryResponse.GetString(2),
-                                ContactTitle = queryResponse.GetString(3),
-                                Address = queryResponse.GetString(4),
-                                City = queryResponse.GetString(5),
-                                Region = customerRegion,
-                                PostalCode = queryResponse.GetString(7),
-                                Country = queryResponse.GetString(8),
-                                Phone = queryResponse.GetString(9),
-                                Fax = customerFax
+                                CustomerID = NullChecker.CheckStringField(queryResponse, 0),
+                                CompanyName = NullChecker.CheckStringField(queryResponse, 1),
+                                ContactName = NullChecker.CheckStringField(queryResponse, 2),
+                                ContactTitle = NullChecker.CheckStringField(queryResponse, 3),
+                                Address = NullChecker.CheckStringField(queryResponse, 4),
+                                City = NullChecker.CheckStringField(queryResponse, 5),
+                                Region = NullChecker.CheckStringField(queryResponse, 6),
+                                PostalCode = NullChecker.CheckStringField(queryResponse, 7),
+                                Country = NullChecker.CheckStringField(queryResponse, 8),
+                                Phone = NullChecker.CheckStringField(queryResponse, 9),
+                                Fax = NullChecker.CheckStringField(queryResponse, 10)
                             };
 
                             customersList.Add(customer);
@@ -151,8 +149,8 @@ namespace DatabaseProject.Repository
 
         public static void DeleteCustomer(string customerID)
         {
-            DeleteOrderDetails(customerID);
-            DeleteOrders(customerID);
+            OrderDatabase.DeleteOrderDetails(customerID);
+            OrderDatabase.DeleteOrders(customerID);
 
             using (var connection = new SqlConnection(ConnectionString))
             {
@@ -165,31 +163,9 @@ namespace DatabaseProject.Repository
             }
         }
 
-        private static void DeleteOrders(string customerID)
+        private static string CheckNullField(SqlDataReader queryResponse, int currentIndex)
         {
-            using (var connection = new SqlConnection(ConnectionString))
-            {
-                connection.Open();
-                if (connection.State == System.Data.ConnectionState.Open)
-                {
-                    SqlCommand deleteOrdersQuery = new SqlCommand($"DELETE FROM Orders WHERE CustomerID = '{customerID}'", connection);
-                }
-            }
+            return queryResponse.IsDBNull(currentIndex) ? null : queryResponse.GetString(currentIndex);
         }
-
-        private static void DeleteOrderDetails(string customerID)
-        {
-            using (var connection = new SqlConnection(ConnectionString))
-            {
-                connection.Open();
-                if (connection.State == System.Data.ConnectionState.Open)
-                {
-                    SqlCommand deleteOrderDetailsQuery = new SqlCommand($"DELETE FROM [Order Details] WHERE OrderID IN " +
-                        $"(SELECT OrderID FROM Orders WHERE CustomerID = '{customerID}')", connection);
-                }
-            }
-        }
-
-
     }
 }

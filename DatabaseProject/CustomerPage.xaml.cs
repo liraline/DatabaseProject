@@ -27,24 +27,7 @@ namespace DatabaseProject
         public CustomerPage()
         {
             this.InitializeComponent();
-            //CustomerList.ItemsSource = CustomerDatabase.GetAllCustomers();
-            Customer Aline = new Customer
-            {
-                CustomerID = "ALIN",
-                CompanyName = "Company",
-                ContactName = "Aline",
-                ContactTitle = "Owner",
-                Address = "One Street, 1",
-                City = "City",
-                Region = "A Region",
-                PostalCode = "0000 000",
-                Country = "Spain",
-                Phone = "030 000-0000",
-                Fax = "030 000-0000"
-            };
-
-            OrderDatabase.GetAllOrders("LEHMS");
-
+            CustomerList.ItemsSource = CustomerDatabase.GetAllCustomers();
         }
 
         public bool IsSelected

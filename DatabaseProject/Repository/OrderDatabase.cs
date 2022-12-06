@@ -1,18 +1,96 @@
-﻿using DatabaseProject.Model;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Data.SqlClient;
+﻿using System;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Data.SqlClient;
+using DatabaseProject.Model;
+using DatabaseProject.Utils;
+using System.Collections.ObjectModel;
 
 namespace DatabaseProject.Repository
 {
     public static class OrderDatabase
     {
         const string ConnectionString = @"Data Source=127.0.0.1,1433;Database=Northwind;User Id=sa;Password=Aluno@123;";
+
+        public static void CreateOrder(Order order)
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                connection.Open();
+
+                if (connection.State == System.Data.ConnectionState.Open)
+                {
+                    SqlCommand insertOrderQuery = new SqlCommand("INSERT INTO Orders VALUES " +
+                        "(@customerID, @employeeID, @orderDate, @requiredDate, @shippedDate, @shipVia, " +
+                        "@freight, @shipName, @shipAddress, @shipCity, @shipRegion, @shipPostalCode, @shipCountry)", connection);
+
+                    insertOrderQuery.Parameters.AddWithValue("@customerID", order.CustomerID);
+                    insertOrderQuery.Parameters.AddWithValue("@employeeID", order.EmployeeID);
+                    insertOrderQuery.Parameters.AddWithValue("@orderDate", order.OrderDate);
+                    insertOrderQuery.Parameters.AddWithValue("@requiredDate", order.RequiredDate);
+                    insertOrderQuery.Parameters.AddWithValue("@shippedDate", order.ShippedDate);
+                    insertOrderQuery.Parameters.AddWithValue("@shipVia", order.ShipVia);
+                    insertOrderQuery.Parameters.AddWithValue("@freight", order.Freight);
+                    insertOrderQuery.Parameters.AddWithValue("@shipName", order.ShipName);
+                    insertOrderQuery.Parameters.AddWithValue("@shipAddress", order.ShipAddress);
+                    insertOrderQuery.Parameters.AddWithValue("@shipCity", order.ShipCity);
+                    insertOrderQuery.Parameters.AddWithValue("@shipRegion", order.ShipRegion);
+                    insertOrderQuery.Parameters.AddWithValue("@shipPostalCode", order.ShipPostalCode);
+                    insertOrderQuery.Parameters.AddWithValue("@shipCountry", order.ShipCountry);
+
+                    insertOrderQuery.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public static void CreateOrderDetails(DateTime orderDate, OrderDetails orderDetails)
+        {
+            int orderID = GetOrderIDFromOrderDate(orderDate);
+
+            if (orderID != -1)
+            {
+                using (var connection = new SqlConnection(ConnectionString))
+                {
+                    connection.Open();
+
+                    if (connection.State == System.Data.ConnectionState.Open)
+                    {
+                        SqlCommand insertOrderDetailsQuery = new SqlCommand("INSERT INTO [Order Details] VALUES " +
+                            "(@orderID, @productID, @unitPrice, @quantity, @discount)", connection);
+
+                        insertOrderDetailsQuery.Parameters.AddWithValue("@orderID", orderID);
+                        insertOrderDetailsQuery.Parameters.AddWithValue("@productID", orderDetails.ProductID);
+                        insertOrderDetailsQuery.Parameters.AddWithValue("@unitPrice", orderDetails.UnitPrice);
+                        insertOrderDetailsQuery.Parameters.AddWithValue("@quantity", orderDetails.Quantity);
+                        insertOrderDetailsQuery.Parameters.AddWithValue("@discount", orderDetails.Discount);
+
+                        insertOrderDetailsQuery.ExecuteNonQuery();
+                    }
+                }
+
+            }
+        }
+
+        private static int GetOrderIDFromOrderDate(DateTime orderDate)
+        {
+            int orderID = -1;
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                connection.Open();
+
+                if (connection.State == System.Data.ConnectionState.Open)
+                {
+                    SqlCommand getOrderIDQuery = new SqlCommand($"SELECT OrderID FROM Orders WHERE OrderDate = '{orderDate:yyyy-MM-dd HH:mm:ss:fff}'", connection);
+                    SqlDataReader queryResponse = getOrderIDQuery.ExecuteReader();
+
+                    if (queryResponse.HasRows)
+                    {
+                        queryResponse.Read();
+                        orderID = NullChecker.CheckIntField(queryResponse, 0);
+                    }
+                }
+            }
+            return orderID;
+        }
 
         public static ObservableCollection<Order> GetAllOrders(string customerID)
         {
@@ -29,27 +107,22 @@ namespace DatabaseProject.Repository
 
                         while (queryResponse.Read())
                         {
-                            DateTime orderRequiredDate = queryResponse.IsDBNull(4) ? DateTime.MinValue : queryResponse.GetDateTime(4);
-                            DateTime orderShippedDate = queryResponse.IsDBNull(5) ? DateTime.MinValue : queryResponse.GetDateTime(5);
-                            string orderRegion = queryResponse.IsDBNull(11) ? null : queryResponse.GetString(11);
-                            string orderPostalCode = queryResponse.IsDBNull(12) ? null : queryResponse.GetString(12);
-
                             Order order = new Order
                             {
-                                OrderID = queryResponse.GetInt32(0),
-                                CustomerID = queryResponse.GetString(1),
-                                EmployeeID = queryResponse.GetInt32(2),
-                                OrderDate = queryResponse.GetDateTime(3),
-                                RequiredDate = orderRequiredDate,
-                                ShippedDate = orderShippedDate,
-                                ShipVia = queryResponse.GetInt32(6),
-                                Freight = queryResponse.GetDecimal(7),
-                                ShipName = queryResponse.GetString(8),
-                                ShipAddress = queryResponse.GetString(9),
-                                ShipCity = queryResponse.GetString(10),
-                                ShipRegion = orderRegion,
-                                ShipPostalCode = orderPostalCode,
-                                ShipCountry = queryResponse.GetString(13)
+                                OrderID = NullChecker.CheckIntField(queryResponse, 0),
+                                CustomerID = NullChecker.CheckStringField(queryResponse, 1),
+                                EmployeeID = NullChecker.CheckIntField(queryResponse, 2),
+                                OrderDate = NullChecker.CheckDateTimeField(queryResponse, 3),
+                                RequiredDate = NullChecker.CheckDateTimeField(queryResponse, 4),
+                                ShippedDate = NullChecker.CheckDateTimeField(queryResponse, 5),
+                                ShipVia = NullChecker.CheckIntField(queryResponse, 6),
+                                Freight = NullChecker.CheckDecimalField(queryResponse, 7),
+                                ShipName = NullChecker.CheckStringField(queryResponse, 8),
+                                ShipAddress = NullChecker.CheckStringField(queryResponse, 9),
+                                ShipCity = NullChecker.CheckStringField(queryResponse, 10),
+                                ShipRegion = NullChecker.CheckStringField(queryResponse, 11),
+                                ShipPostalCode = NullChecker.CheckStringField(queryResponse, 12),
+                                ShipCountry = NullChecker.CheckStringField(queryResponse, 13)
                             };
 
                             ordersList.Add(order);
@@ -65,9 +138,29 @@ namespace DatabaseProject.Repository
             return ordersList;
         }
 
-        public static void GetOrderDetails(string orderID)
+        public static void DeleteOrders(string customerID)
         {
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                connection.Open();
+                if (connection.State == System.Data.ConnectionState.Open)
+                {
+                    SqlCommand deleteOrdersQuery = new SqlCommand($"DELETE FROM Orders WHERE CustomerID = '{customerID}'", connection);
+                }
+            }
+        }
 
+        public static void DeleteOrderDetails(string customerID)
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                connection.Open();
+                if (connection.State == System.Data.ConnectionState.Open)
+                {
+                    SqlCommand deleteOrderDetailsQuery = new SqlCommand($"DELETE FROM [Order Details] WHERE OrderID IN " +
+                        $"(SELECT OrderID FROM Orders WHERE CustomerID = '{customerID}')", connection);
+                }
+            }
         }
     }
 }
