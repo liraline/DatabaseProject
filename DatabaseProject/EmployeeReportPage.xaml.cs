@@ -22,32 +22,23 @@ namespace DatabaseProject
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class OrdersPage : Page
+    public sealed partial class EmployeeReportPage : Page
     {
-        private string selectedCustomerID;
-
-        public OrdersPage()
+        public EmployeeReportPage()
         {
             this.InitializeComponent();
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        private void SearchButton_Click(object sender, RoutedEventArgs e)
         {
-            if (e.Parameter != null)
+            int convertedInt = 0;
+            if (!string.IsNullOrEmpty(EmployeeID.Text) && Int32.TryParse(EmployeeID.Text, out convertedInt))
             {
-                Customer selectedCustomer = (Customer)e.Parameter;
-                selectedCustomerID = selectedCustomer.CustomerID;
-                OrderList.ItemsSource = OrderDatabase.GetAllOrders(selectedCustomerID);
+                EmployeeReport employeeReport = Database.ExecProcedure(convertedInt);
+                FirstName.Text = employeeReport.FirstName;
+                LastName.Text = employeeReport.LastName;
+                TotalSales.Text = employeeReport.TotalSales.ToString();
             }
-        }
-        private void AddButton_Click(object sender, RoutedEventArgs e)
-        {
-            this.Frame.Navigate(typeof(CreateOrderPage), selectedCustomerID);
-        }
-
-        private void BackButton_Click(object sender, RoutedEventArgs e)
-        {
-            this.Frame.Navigate(typeof(CustomerPage));
         }
     }
 }

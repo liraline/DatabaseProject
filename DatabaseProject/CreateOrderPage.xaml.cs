@@ -12,6 +12,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using DatabaseProject.Repository;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -25,6 +26,12 @@ namespace DatabaseProject
         public CreateOrderPage()
         {
             this.InitializeComponent();
+            ProductList.ItemsSource = ProductDatabase.GetAllProducts();
+        }
+
+        private void AddProductButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

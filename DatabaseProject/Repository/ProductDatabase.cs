@@ -14,7 +14,6 @@ namespace DatabaseProject.Repository
         public static ObservableCollection<Product> GetAllProducts()
         {
             ObservableCollection<Product> productsList = new ObservableCollection<Product>();
-
             try
             {
                 using (var connection = new SqlConnection(ConnectionString))
@@ -25,7 +24,7 @@ namespace DatabaseProject.Repository
                         SqlCommand getProductsQuery = new SqlCommand("SELECT Products.ProductID, Products.ProductName, Categories.CategoryName, " +
                             "Products.QuantityPerUnit, Products.UnitPrice, Products.UnitsInStock " +
                             " FROM Products INNER JOIN Categories ON Products.CategoryID = Categories.CategoryID " +
-                            " WHERE Products.Discontinued = 0");
+                            " WHERE Products.Discontinued = 0", connection);
                         SqlDataReader queryResponse = getProductsQuery.ExecuteReader();
 
                         while (queryResponse.Read())
@@ -37,7 +36,7 @@ namespace DatabaseProject.Repository
                                 CategoryName = NullChecker.CheckStringField(queryResponse, 2),
                                 QuantityPerUnit = NullChecker.CheckStringField(queryResponse, 3),
                                 UnitPrice = NullChecker.CheckDecimalField(queryResponse, 4),
-                                UnitsInStock = NullChecker.CheckIntField(queryResponse, 5)
+                                UnitsInStock = NullChecker.CheckSmallIntField(queryResponse, 5)
                             };
 
                             productsList.Add(product);

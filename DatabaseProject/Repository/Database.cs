@@ -1,4 +1,6 @@
 ﻿using System.Data.SqlClient;
+using DatabaseProject.Model;
+using DatabaseProject.Utils;
 
 namespace DatabaseProject.Repository
 {
@@ -26,10 +28,37 @@ namespace DatabaseProject.Repository
                         "@employeeID INT AS " +
                         "SELECT Employees.FirstName, Employees.LastName, COUNT(Orders.EmployeeID) " +
                         "FROM Employees JOIN Orders ON Employees.EmployeeID = Orders.EmployeeID " +
-                        "WHERE Employees.EmployeeID = 1 GROUP BY Employees.FirstName, Employees.LastName;", connection);
+                        "WHERE Employees.EmployeeID = @employeeID GROUP BY Employees.FirstName, Employees.LastName;", connection);
                     createProcedureCommand.ExecuteNonQuery();
                 }
             }
+        }
+
+        public static EmployeeReport ExecProcedure(int employeeID)
+        {
+            EmployeeReport employeeReport = null;
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                connection.Open();
+
+                if (connection.State == System.Data.ConnectionState.Open)
+                {
+                    SqlCommand execProcedureCommand = new SqlCommand($"EXEC checkEmployeeTotalSales {employeeID}", connection);
+                    SqlDataReader procedureResponse = execProcedureCommand.ExecuteReader();
+
+                    if (procedureResponse.HasRows)
+                    {
+                        procedureResponse.Read();
+                        employeeReport = new EmployeeReport
+                        {
+                            FirstName = NullChecker.CheckStringField(procedureResponse, 0),
+                            LastName = NullChecker.CheckStringField(procedureResponse, 1),
+                            TotalSales = NullChecker.CheckIntField(procedureResponse, 2)
+                        };
+                    }
+                }
+            }
+            return employeeReport;
         }
     }
 }

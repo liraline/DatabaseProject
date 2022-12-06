@@ -2,13 +2,70 @@
     x:Class="DatabaseProject.CreateOrderPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:DatabaseProject"
+    xmlns:local="using:DatabaseProject.Model"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-
+        <!--<Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>-->
+        <!--<TextBlock Text="Available Products" Grid.Row="0"/>-->
+        <Grid Background="{ThemeResource SystemControlAcrylicWindowBrush}">
+            <RelativePanel>
+                <ListView Name="ProductList"
+                      SelectionMode="Single"
+                      ScrollViewer.VerticalScrollBarVisibility="Auto"
+                      ScrollViewer.IsVerticalRailEnabled="False"
+                      ScrollViewer.VerticalScrollMode="Enabled"
+                      ScrollViewer.HorizontalScrollMode="Enabled"
+                      ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                      ScrollViewer.IsHorizontalRailEnabled="False" HorizontalAlignment="Stretch">
+                    <ListView.HeaderTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" Background="gray">
+                                <TextBlock Text="Product ID" Margin="13,0,0,0" Width="80" Foreground="DarkRed" VerticalAlignment="Center"/>
+                                <TextBlock Text="Product Name" Width="230" Foreground="DarkRed" VerticalAlignment="Center"/>
+                                <TextBlock Text="Category Name" Width="200" Foreground="DarkRed" VerticalAlignment="Center"/>
+                                <TextBlock Text="Quantity Per Unit" Width="180" Foreground="DarkRed" VerticalAlignment="Center"/>
+                                <TextBlock Text="Unit Price" Width="80" Foreground="DarkRed" VerticalAlignment="Center"/>
+                                <TextBlock Text="Units In Stock" Width="90" Foreground="DarkRed" VerticalAlignment="Center"/>
+                                <TextBlock Text="Action" Width="90" Foreground="DarkRed" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.HeaderTemplate>
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="local:Product">
+                            <ListViewItem>
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <TextBlock Name="CustomerId"
+                                            Text="{x:Bind ProductID}"
+                                            Width="80" />
+                                    <TextBlock Name="CompanyName"
+                                            Text="{x:Bind ProductName}"
+                                            Width="230" />
+                                    <TextBlock Text="{x:Bind CategoryName}"
+                                           Width="200" />
+                                    <TextBlock Text="{x:Bind QuantityPerUnit}"
+                                           Width="180" />
+                                    <TextBlock Text="{x:Bind UnitPriceString}"
+                                           Width="80" />
+                                    <TextBlock Text="{x:Bind UnitsInStockString}"
+                                           Width="90" />
+                                    <Button x:Name="AddProductButton" Click="AddProductButton_Click" Content="&#xE710;" FontFamily="Segoe MDL2 Assets" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </ListViewItem>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </RelativePanel>
+        </Grid>
     </Grid>
 </Page>

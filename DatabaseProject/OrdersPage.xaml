@@ -35,9 +35,9 @@
                                 <TextBlock Text="Ship City" Width="100" Foreground="DarkRed" VerticalAlignment="Center"/>
                                 <TextBlock Text="Ship Region" Width="100" Foreground="DarkRed" VerticalAlignment="Center"/>
                                 <TextBlock Text="Ship Postal Code" Width="120" Foreground="DarkRed" VerticalAlignment="Center"/>
-                                <TextBlock Text="Ship Country" Width="110" Foreground="DarkRed" VerticalAlignment="Center"/>
+                                <TextBlock Text="Ship Country" Width="95" Foreground="DarkRed" VerticalAlignment="Center"/>
                                 <Button x:Name="AddButton" Click="AddButton_Click" Content="&#xE710;" FontFamily="Segoe MDL2 Assets" VerticalAlignment="Center"/>
-                                <Button x:Name="BackButton" Click="BackButton_Click" Content="&#xE72B;" FontFamily="Segoe MDL2 Assets" VerticalAlignment="Center"/>
+                                <Button x:Name="BackButton" Click="BackButton_Click" Content="&#xE72B;" Margin="4,0,0,0" FontFamily="Segoe MDL2 Assets" VerticalAlignment="Center"/>
                             </StackPanel>
                         </DataTemplate>
                     </ListView.HeaderTemplate>
@@ -74,7 +74,7 @@
                                     <TextBlock Text="{x:Bind ShipPostalCode}"
                                            Width="120" />
                                     <TextBlock Text="{x:Bind ShipCountry}"
-                                           Width="110" />
+                                           Width="95" />
                                 </StackPanel>
                             </ListViewItem>
                         </DataTemplate>

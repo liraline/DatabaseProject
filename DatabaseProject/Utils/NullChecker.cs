@@ -20,6 +20,11 @@ namespace DatabaseProject.Utils
             return queryResponse.IsDBNull(currentIndex) ? -1 : queryResponse.GetInt32(currentIndex);
         }
 
+        public static int CheckSmallIntField(SqlDataReader queryResponse, int currentIndex)
+        {
+            return queryResponse.IsDBNull(currentIndex) ? -1 : queryResponse.GetInt16(currentIndex);
+        }
+
         public static decimal CheckDecimalField(SqlDataReader queryResponse, int currentIndex)
         {
             return queryResponse.IsDBNull(currentIndex) ? -1 : queryResponse.GetDecimal(currentIndex);

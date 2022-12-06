@@ -26,7 +26,16 @@ namespace DatabaseProject
         public MainPage()
         {
             this.InitializeComponent();
-            InventoryList.ItemsSource = ProductDatabase.GetAllProducts();
+        }
+
+        private void CustomersListButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(CustomerPage));
+        }
+
+        private void EmployeeReportButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(EmployeeReportPage));
         }
     }
 }

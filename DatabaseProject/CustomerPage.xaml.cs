@@ -67,5 +67,10 @@ namespace DatabaseProject
                 this.Frame.Navigate(typeof(OrdersPage), selectedCustomer);
             }
         }
+
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(MainPage));
+        }
     }
 }

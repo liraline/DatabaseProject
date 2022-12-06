@@ -23,7 +23,7 @@
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal" Background="gray">
                                 <TextBlock Text="ID" Margin="13,0,0,0" Width="80" Foreground="DarkRed" VerticalAlignment="Center"/>
-                                <TextBlock Text="Company Name" Width="300" Foreground="DarkRed" VerticalAlignment="Center"/>
+                                <TextBlock Text="Company Name" Width="260" Foreground="DarkRed" VerticalAlignment="Center"/>
                                 <TextBlock Text="Contact Name" Width="200" Foreground="DarkRed" VerticalAlignment="Center"/>
                                 <TextBlock Text="Contact Title" Width="200" Foreground="DarkRed" VerticalAlignment="Center"/>
                                 <TextBlock Text="Address" Width="300" Foreground="DarkRed" VerticalAlignment="Center"/>
@@ -35,6 +35,7 @@
                                 <TextBlock Text="Fax" Width="120" Foreground="DarkRed" VerticalAlignment="Center"/>
                                 <TextBlock Text="Actions" Width="120" Foreground="DarkRed" VerticalAlignment="Center"/>
                                 <Button x:Name="AddButton" Click="AddButton_Click" Content="&#xE710;" FontFamily="Segoe MDL2 Assets" VerticalAlignment="Center"/>
+                                <Button x:Name="BackButton" Click="BackButton_Click" Content="&#xE72B;" Margin="4,0,0,0" FontFamily="Segoe MDL2 Assets" VerticalAlignment="Center"/>
                             </StackPanel>
                         </DataTemplate>
                     </ListView.HeaderTemplate>
@@ -47,7 +48,7 @@
                                             Width="80" />
                                     <TextBlock Name="CompanyName"
                                             Text="{x:Bind CompanyName}"
-                                            Width="300" />
+                                            Width="260" />
                                     <TextBlock Text="{x:Bind ContactName}"
                                            Width="200" />
                                     <TextBlock Text="{x:Bind ContactTitle}"
