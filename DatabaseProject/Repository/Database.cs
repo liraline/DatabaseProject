@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Data.SqlClient;
 
 namespace DatabaseProject.Repository
 {
@@ -19,7 +14,7 @@ namespace DatabaseProject.Repository
 
                 if (connection.State == System.Data.ConnectionState.Open)
                 {
-                    SqlCommand createTriggerCommand = new SqlCommand("CREATE TRIGGER applyDiscountWhenFiveOrMoreProducts ON [Order Details] " +
+                    SqlCommand createTriggerCommand = new SqlCommand("CREATE OR ALTER TRIGGER applyDiscountWhenFiveOrMoreProducts ON [Order Details] " +
                         "AFTER INSERT AS BEGIN " +
                         "UPDATE [Order Details] SET Discount = 0.05 WHERE [Order Details].OrderID = (" +
                             "SELECT [Order Details].OrderID FROM [Order Details] " +

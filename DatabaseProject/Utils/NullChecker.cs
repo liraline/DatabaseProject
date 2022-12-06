@@ -24,5 +24,10 @@ namespace DatabaseProject.Utils
         {
             return queryResponse.IsDBNull(currentIndex) ? -1 : queryResponse.GetDecimal(currentIndex);
         }
+
+        public static string CheckStringProperty(string property)
+        {
+            return string.IsNullOrEmpty(property) ? "" : property;
+        }
     }
 }

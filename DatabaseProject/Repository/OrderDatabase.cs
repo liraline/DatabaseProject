@@ -146,6 +146,7 @@ namespace DatabaseProject.Repository
                 if (connection.State == System.Data.ConnectionState.Open)
                 {
                     SqlCommand deleteOrdersQuery = new SqlCommand($"DELETE FROM Orders WHERE CustomerID = '{customerID}'", connection);
+                    deleteOrdersQuery.ExecuteNonQuery();
                 }
             }
         }
@@ -159,6 +160,7 @@ namespace DatabaseProject.Repository
                 {
                     SqlCommand deleteOrderDetailsQuery = new SqlCommand($"DELETE FROM [Order Details] WHERE OrderID IN " +
                         $"(SELECT OrderID FROM Orders WHERE CustomerID = '{customerID}')", connection);
+                    deleteOrderDetailsQuery.ExecuteNonQuery();
                 }
             }
         }

@@ -162,10 +162,5 @@ namespace DatabaseProject.Repository
                 }
             }
         }
-
-        private static string CheckNullField(SqlDataReader queryResponse, int currentIndex)
-        {
-            return queryResponse.IsDBNull(currentIndex) ? null : queryResponse.GetString(currentIndex);
-        }
     }
 }

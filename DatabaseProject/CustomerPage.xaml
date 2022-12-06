@@ -9,18 +9,7 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-
-        <CommandBar FlowDirection="RightToLeft" OverflowButtonVisibility="Collapsed" Background="Pink" Grid.Row="0">
-            <AppBarButton Content="Products" Width="80"/>
-            <AppBarButton Content="Orders" Width="80"/>
-            <AppBarButton Content="Customers" Width="80"/>
-        </CommandBar>
-
-        <Grid Background="{ThemeResource SystemControlAcrylicWindowBrush}" Grid.Row="1">
+        <Grid Background="{ThemeResource SystemControlAcrylicWindowBrush}">
             <RelativePanel>
                 <ListView Name="CustomerList"
                       SelectionMode="Single"
@@ -29,21 +18,23 @@
                       ScrollViewer.VerticalScrollMode="Enabled"
                       ScrollViewer.HorizontalScrollMode="Enabled"
                       ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                      ScrollViewer.IsHorizontalRailEnabled="False">
+                      ScrollViewer.IsHorizontalRailEnabled="False" HorizontalAlignment="Stretch">
                     <ListView.HeaderTemplate>
                         <DataTemplate>
-                            <StackPanel Orientation="Horizontal"  >
-                                <TextBlock Text="ID" Margin="13,0,0,0" Width="80" Foreground="DarkRed" />
-                                <TextBlock Text="Company Name" Width="300" Foreground="DarkRed" />
-                                <TextBlock Text="Contact Name" Width="200" Foreground="DarkRed" />
-                                <TextBlock Text="Contact Title" Width="200" Foreground="DarkRed" />
-                                <TextBlock Text="Address" Width="300" Foreground="DarkRed" />
-                                <TextBlock Text="City" Width="100" Foreground="DarkRed" />
-                                <TextBlock Text="Region" Width="80" Foreground="DarkRed" />
-                                <TextBlock Text="Postal Code" Width="100" Foreground="DarkRed" />
-                                <TextBlock Text="Country" Width="120" Foreground="DarkRed" />
-                                <TextBlock Text="Phone" Width="120" Foreground="DarkRed" />
-                                <TextBlock Text="Fax" Width="120" Foreground="DarkRed" />
+                            <StackPanel Orientation="Horizontal" Background="gray">
+                                <TextBlock Text="ID" Margin="13,0,0,0" Width="80" Foreground="DarkRed" VerticalAlignment="Center"/>
+                                <TextBlock Text="Company Name" Width="300" Foreground="DarkRed" VerticalAlignment="Center"/>
+                                <TextBlock Text="Contact Name" Width="200" Foreground="DarkRed" VerticalAlignment="Center"/>
+                                <TextBlock Text="Contact Title" Width="200" Foreground="DarkRed" VerticalAlignment="Center"/>
+                                <TextBlock Text="Address" Width="300" Foreground="DarkRed" VerticalAlignment="Center"/>
+                                <TextBlock Text="City" Width="100" Foreground="DarkRed" VerticalAlignment="Center"/>
+                                <TextBlock Text="Region" Width="100" Foreground="DarkRed" VerticalAlignment="Center"/>
+                                <TextBlock Text="Postal Code" Width="100" Foreground="DarkRed" VerticalAlignment="Center"/>
+                                <TextBlock Text="Country" Width="120" Foreground="DarkRed" VerticalAlignment="Center"/>
+                                <TextBlock Text="Phone" Width="120" Foreground="DarkRed" VerticalAlignment="Center"/>
+                                <TextBlock Text="Fax" Width="120" Foreground="DarkRed" VerticalAlignment="Center"/>
+                                <TextBlock Text="Actions" Width="120" Foreground="DarkRed" VerticalAlignment="Center"/>
+                                <Button x:Name="AddButton" Click="AddButton_Click" Content="&#xE710;" FontFamily="Segoe MDL2 Assets" VerticalAlignment="Center"/>
                             </StackPanel>
                         </DataTemplate>
                     </ListView.HeaderTemplate>
@@ -66,7 +57,7 @@
                                     <TextBlock Text="{x:Bind City}"
                                            Width="100" />
                                     <TextBlock Text="{x:Bind Region}"
-                                           Width="80" />
+                                           Width="100" />
                                     <TextBlock Text="{x:Bind PostalCode}"
                                            Width="100" />
                                     <TextBlock Text="{x:Bind Country}"
@@ -76,11 +67,11 @@
                                     <TextBlock Text="{x:Bind Fax}"
                                            Width="120" />
                                     <StackPanel Orientation="Horizontal">
-                                        <Button Content="&#xE70F;" FontFamily="Segoe MDL2 Assets"/>
-                                        <Button Content="&#xE894;" FontFamily="Segoe MDL2 Assets" Margin="4,0,0,0"/>
+                                        <Button x:Name="EditButton" Content="&#xE70F;" FontFamily="Segoe MDL2 Assets" Click="EditButton_Click"/>
+                                        <Button x:Name="DeleteButton" Content="&#xE894;" FontFamily="Segoe MDL2 Assets" Margin="4,0,0,0" Click="DeleteButton_Click"/>
+                                        <Button x:Name="OrdersButton" Content="&#xE719;" FontFamily="Segoe MDL2 Assets" Margin="4,0,0,0" Click="OrdersButton_Click"/>
                                     </StackPanel>
                                 </StackPanel>
-
                             </ListViewItem>
                         </DataTemplate>
                     </ListView.ItemTemplate>

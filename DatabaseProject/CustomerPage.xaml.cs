@@ -27,24 +27,44 @@ namespace DatabaseProject
         public CustomerPage()
         {
             this.InitializeComponent();
+            PopulateList();
+        }
+
+        private void PopulateList()
+        {
             CustomerList.ItemsSource = CustomerDatabase.GetAllCustomers();
         }
 
-        public bool IsSelected
+        private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            get { return (bool)GetValue(IsSelectedProperty); }
-            set { SetValue(IsSelectedProperty, value); }
+            this.Frame.Navigate(typeof(CreateOrUpdateCustomerPage));
         }
 
-        public static readonly DependencyProperty IsSelectedProperty =
-            DependencyProperty.Register(nameof(IsSelected), typeof(bool), typeof(ListViewItem), new PropertyMetadata(null, new PropertyChangedCallback(OnIsSelectedPropertyChanged)));
-
-        private static void OnIsSelectedPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
-            var self = (ListViewItem)d;
-            if (self != null)
+            if (CustomerList.SelectedItem != null)
             {
-                self.IsSelected = !self.IsSelected;
+                Customer selectedCustomer = (Customer)CustomerList.SelectedItem;
+                CustomerDatabase.DeleteCustomer(selectedCustomer.CustomerID);
+                PopulateList();
+            }
+        }
+
+        private void EditButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (CustomerList.SelectedItem != null)
+            {
+                Customer selectedCustomer = (Customer)CustomerList.SelectedItem;
+                this.Frame.Navigate(typeof(CreateOrUpdateCustomerPage), selectedCustomer);
+            }
+        }
+
+        private void OrdersButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (CustomerList.SelectedItem != null)
+            {
+                Customer selectedCustomer = (Customer)CustomerList.SelectedItem;
+                this.Frame.Navigate(typeof(OrdersPage), selectedCustomer);
             }
         }
     }
