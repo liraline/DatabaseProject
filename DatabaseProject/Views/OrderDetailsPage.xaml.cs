@@ -42,7 +42,12 @@ namespace DatabaseProject
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(CustomerPage));
+            Frame rootFrame = Window.Current.Content as Frame;
+            if (rootFrame.CanGoBack)
+            {
+                rootFrame.GoBack();
+                //this.Frame.Navigate(typeof(OrdersPage));
+            }
         }
     }
 }

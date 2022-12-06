@@ -119,20 +119,17 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="CreateOrderPage.xaml.cs">
+    <Compile Include="Views\CreateOrderPage.xaml.cs">
       <DependentUpon>CreateOrderPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="CreateOrUpdateCustomerPage.xaml.cs">
+    <Compile Include="Views\CreateOrUpdateCustomerPage.xaml.cs">
       <DependentUpon>CreateOrUpdateCustomerPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="CustomerPage.xaml.cs">
+    <Compile Include="Views\CustomerPage.xaml.cs">
       <DependentUpon>CustomerPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="EmployeeReportPage.xaml.cs">
+    <Compile Include="Views\EmployeeReportPage.xaml.cs">
       <DependentUpon>EmployeeReportPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="FirstPage.xaml.cs">
-      <DependentUpon>FirstPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
@@ -143,10 +140,10 @@
     <Compile Include="Model\Order.cs" />
     <Compile Include="Model\OrderDetails.cs" />
     <Compile Include="Model\Product.cs" />
-    <Compile Include="OrderDetailsPage.xaml.cs">
+    <Compile Include="Views\OrderDetailsPage.xaml.cs">
       <DependentUpon>OrderDetailsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="OrdersPage.xaml.cs">
+    <Compile Include="Views\OrdersPage.xaml.cs">
       <DependentUpon>OrdersPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -176,23 +173,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="CreateOrderPage.xaml">
+    <Page Include="Views\CreateOrderPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="CreateOrUpdateCustomerPage.xaml">
+    <Page Include="Views\CreateOrUpdateCustomerPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="CustomerPage.xaml">
+    <Page Include="Views\CustomerPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="EmployeeReportPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="FirstPage.xaml">
+    <Page Include="Views\EmployeeReportPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -200,11 +193,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="OrderDetailsPage.xaml">
+    <Page Include="Views\OrderDetailsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="OrdersPage.xaml">
+    <Page Include="Views\OrdersPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
