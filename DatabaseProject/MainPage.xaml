@@ -21,14 +21,14 @@
         </Grid.ColumnDefinitions>
 
         <TextBlock Text="Triggers + Stored Procedures Project 2022.2" Foreground="DarkSlateGray" FontSize="25" Grid.Row="0" Grid.Column="0"/>
-        <TextBlock Text="Students: Aline de Lira, Davi Araújo and Luis Queiroz" Foreground="DarkSlateGray" FontSize="18" Grid.Row="1" Grid.Column="0"/>
+        <TextBlock Text="Students: Aline de Lira, Davi Araújo and Luis Queiroz" Foreground="DarkSlateGray" FontSize="18" Grid.Row="1" Grid.Column="0" Margin="0,20,0,0"/>
         <TextBlock Text="Trigger created:" FontSize="18" Foreground="DarkRed" Grid.Row="0" Grid.Column="1" Margin="60,0,20,0"/>
         <TextBlock Grid.Row="0" Grid.Column="2">
-            <Run Text="CREATE TRIGGER applyDiscountWhenFiveOrMoreProducts ON [Order Details]"/>
+            <Run Text=" CREATE TRIGGER applyDiscountWhenFiveOrMoreProducts ON [Order Details]"/>
             <LineBreak/>
             <Run Text="AFTER INSERT AS"/>
             <LineBreak/>
-            <Run Text="     BEGIN"/>
+            <Run Text="BEGIN"/>
             <LineBreak/>
             <Run Text="     UPDATE [Order Details] SET Discount = 0.05 WHERE [Order Details].OrderID = ("/>
             <LineBreak/>
@@ -40,7 +40,7 @@
             <LineBreak/>
             <Run Text="         HAVING COUNT(*) >= 5);"/>
             <LineBreak/>
-            <Run Text="     END"/>
+            <Run Text="END"/>
         </TextBlock>
         <TextBlock Text="Stored procedure created:" Foreground="DarkRed" FontSize="18" Grid.Row="1" Grid.Column="1" Margin="60,20,20,0"/>
         <TextBlock Grid.Row="1" Grid.Column="2" Margin="0,20,0,0">
@@ -50,7 +50,7 @@
             <LineBreak/>
             <Run Text="AS"/>
             <LineBreak/>
-            <Run Text="SELECT Employees.FirstName, Employees.LastName, COUNT(Orders.EmployeeID)"/>
+            <Run Text="SELECT Employees.EmployeeID, Employees.FirstName, Employees.LastName, COUNT(Orders.EmployeeID)"/>
             <LineBreak/>
             <Run Text="FROM Employees"/>
             <LineBreak/>
@@ -58,7 +58,7 @@
             <LineBreak/>
             <Run Text="WHERE Employees.EmployeeID = @employeeID"/>
             <LineBreak/>
-            <Run Text="GROUP BY Employees.FirstName, Employees.LastName;"/>
+            <Run Text="GROUP BY Employees.EmployeeID, Employees.FirstName, Employees.LastName;"/>
         </TextBlock>
         <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.ColumnSpan="3" HorizontalAlignment="Center" Margin="0,40,0,0">
             <Button x:Name="CustomersListButton" Content="Customers List" HorizontalAlignment="Center" Width="300" Click="CustomersListButton_Click"/>

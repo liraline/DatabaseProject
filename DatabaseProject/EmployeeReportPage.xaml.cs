@@ -35,10 +35,19 @@ namespace DatabaseProject
             if (!string.IsNullOrEmpty(EmployeeID.Text) && Int32.TryParse(EmployeeID.Text, out convertedInt))
             {
                 EmployeeReport employeeReport = Database.ExecProcedure(convertedInt);
-                FirstName.Text = employeeReport.FirstName;
-                LastName.Text = employeeReport.LastName;
-                TotalSales.Text = employeeReport.TotalSales.ToString();
+                if (employeeReport != null)
+                {
+                    ID.Text = employeeReport.EmployeeID.ToString();
+                    FirstName.Text = employeeReport.FirstName;
+                    LastName.Text = employeeReport.LastName;
+                    TotalSales.Text = employeeReport.TotalSales.ToString();
+                }
             }
+        }
+
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(MainPage));
         }
     }
 }

@@ -36,7 +36,8 @@
                                 <TextBlock Text="Ship Region" Width="100" Foreground="DarkRed" VerticalAlignment="Center"/>
                                 <TextBlock Text="Ship Postal Code" Width="120" Foreground="DarkRed" VerticalAlignment="Center"/>
                                 <TextBlock Text="Ship Country" Width="95" Foreground="DarkRed" VerticalAlignment="Center"/>
-                                <Button x:Name="AddButton" Click="AddButton_Click" Content="&#xE710;" FontFamily="Segoe MDL2 Assets" VerticalAlignment="Center"/>
+                                <TextBlock Text="Action" Width="50" Foreground="DarkRed" VerticalAlignment="Center"/>
+                                <Button x:Name="CreateNewOrderButton" Click="CreateNewOrderButton_Click" Content="&#xE710;" FontFamily="Segoe MDL2 Assets" VerticalAlignment="Center"/>
                                 <Button x:Name="BackButton" Click="BackButton_Click" Content="&#xE72B;" Margin="4,0,0,0" FontFamily="Segoe MDL2 Assets" VerticalAlignment="Center"/>
                             </StackPanel>
                         </DataTemplate>
@@ -75,6 +76,7 @@
                                            Width="120" />
                                     <TextBlock Text="{x:Bind ShipCountry}"
                                            Width="95" />
+                                    <Button x:Name="ViewButton" Content="&#xE890;" FontFamily="Segoe MDL2 Assets" Click="ViewButton_Click"/>
                                 </StackPanel>
                             </ListViewItem>
                         </DataTemplate>

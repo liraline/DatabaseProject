@@ -164,5 +164,34 @@ namespace DatabaseProject.Repository
                 }
             }
         }
+
+        public static ObservableCollection<OrderDetails> GetAllOrderDetails(int orderID)
+        {
+            ObservableCollection<OrderDetails> orderDetailsList = new ObservableCollection<OrderDetails>();
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                connection.Open();
+                if (connection.State == System.Data.ConnectionState.Open)
+                {
+                    SqlCommand getOrderDetailsQuery = new SqlCommand($"SELECT * FROM [Order Details] WHERE OrderID = '{orderID}'", connection);
+                    SqlDataReader queryResponse = getOrderDetailsQuery.ExecuteReader();
+
+                    while (queryResponse.Read())
+                    {
+                        OrderDetails orderDetails = new OrderDetails
+                        {
+                            OrderID = NullChecker.CheckIntField(queryResponse, 0),
+                            ProductID = NullChecker.CheckIntField(queryResponse, 1),
+                            UnitPrice = NullChecker.CheckDecimalField(queryResponse, 2),
+                            Quantity = NullChecker.CheckSmallIntField(queryResponse, 3),
+                            Discount = queryResponse.GetFloat(4)
+                        };
+
+                        orderDetailsList.Add(orderDetails);
+                    }
+                }
+            }
+            return orderDetailsList;
+        }
     }
 }

@@ -8,6 +8,7 @@ namespace DatabaseProject.Model
 {
     public class EmployeeReport
     {
+        public int EmployeeID { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public int TotalSales { get; set; }

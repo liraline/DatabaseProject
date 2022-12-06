@@ -26,9 +26,9 @@ namespace DatabaseProject.Repository
 
                     SqlCommand createProcedureCommand = new SqlCommand("CREATE OR ALTER PROCEDURE checkEmployeeTotalSales " +
                         "@employeeID INT AS " +
-                        "SELECT Employees.FirstName, Employees.LastName, COUNT(Orders.EmployeeID) " +
+                        "SELECT Employees.EmployeeID, Employees.FirstName, Employees.LastName, COUNT(Orders.EmployeeID) " +
                         "FROM Employees JOIN Orders ON Employees.EmployeeID = Orders.EmployeeID " +
-                        "WHERE Employees.EmployeeID = @employeeID GROUP BY Employees.FirstName, Employees.LastName;", connection);
+                        "WHERE Employees.EmployeeID = @employeeID GROUP BY Employees.EmployeeID, Employees.FirstName, Employees.LastName;", connection);
                     createProcedureCommand.ExecuteNonQuery();
                 }
             }
@@ -51,9 +51,10 @@ namespace DatabaseProject.Repository
                         procedureResponse.Read();
                         employeeReport = new EmployeeReport
                         {
-                            FirstName = NullChecker.CheckStringField(procedureResponse, 0),
-                            LastName = NullChecker.CheckStringField(procedureResponse, 1),
-                            TotalSales = NullChecker.CheckIntField(procedureResponse, 2)
+                            EmployeeID = NullChecker.CheckIntField(procedureResponse, 0),
+                            FirstName = NullChecker.CheckStringField(procedureResponse, 1),
+                            LastName = NullChecker.CheckStringField(procedureResponse, 2),
+                            TotalSales = NullChecker.CheckIntField(procedureResponse, 3)
                         };
                     }
                 }

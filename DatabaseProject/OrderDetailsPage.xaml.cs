@@ -12,8 +12,8 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using DatabaseProject.Repository;
 using DatabaseProject.Model;
+using DatabaseProject.Repository;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -22,11 +22,11 @@ namespace DatabaseProject
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class OrdersPage : Page
+    public sealed partial class OrderDetailsPage : Page
     {
-        private Customer selectedCustomer;
+        public Order order;
 
-        public OrdersPage()
+        public OrderDetailsPage()
         {
             this.InitializeComponent();
         }
@@ -35,26 +35,14 @@ namespace DatabaseProject
         {
             if (e.Parameter != null)
             {
-                selectedCustomer = (Customer)e.Parameter;
-                OrderList.ItemsSource = OrderDatabase.GetAllOrders(selectedCustomer.CustomerID);
+                order = (Order)e.Parameter;
+                OrderList.ItemsSource = OrderDatabase.GetAllOrderDetails(order.OrderID);
             }
-        }
-        private void CreateNewOrderButton_Click(object sender, RoutedEventArgs e)
-        {
-            this.Frame.Navigate(typeof(CreateOrderPage), selectedCustomer);
         }
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(CustomerPage));
-        }
-
-        private void ViewButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (OrderList.SelectedItem != null)
-            {
-                this.Frame.Navigate(typeof(OrderDetailsPage), (Order)OrderList.SelectedItem);
-            }
         }
     }
 }
