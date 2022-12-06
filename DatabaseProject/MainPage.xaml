@@ -8,7 +8,47 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid>
-
+    <Grid Background="{ThemeResource SystemControlAcrylicWindowBrush}">
+        <RelativePanel>
+            <ListView Name="InventoryList"
+                  SelectionMode="Single"
+                  ScrollViewer.VerticalScrollBarVisibility="Auto"
+                  ScrollViewer.IsVerticalRailEnabled="True"
+                  ScrollViewer.VerticalScrollMode="Enabled"
+                  ScrollViewer.HorizontalScrollMode="Enabled"
+                  ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                  ScrollViewer.IsHorizontalRailEnabled="True"
+                  Margin="20">
+                <ListView.HeaderTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal"  >
+                            <TextBlock Text="ID" Margin="8,0" Width="50" Foreground="DarkRed" />
+                            <TextBlock Text="Product description" Width="300" Foreground="DarkRed" />
+                            <TextBlock Text="Packaging" Width="200" Foreground="DarkRed" />
+                            <TextBlock Text="Price" Width="80" Foreground="DarkRed" />
+                            <TextBlock Text="In stock" Width="80" Foreground="DarkRed" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.HeaderTemplate>
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="local:Product">
+                        <StackPanel Orientation="Horizontal" >
+                            <TextBlock Name="ItemId"
+                                    Text="{x:Bind ProductID}"
+                                    Width="50" />
+                            <TextBlock Name="ItemName"
+                                    Text="{x:Bind ProductName}"
+                                    Width="300" />
+                            <TextBlock Text="{x:Bind QuantityPerUnit}"
+                                   Width="200" />
+                            <TextBlock Text="{x:Bind UnitPriceString}"
+                                   Width="80" />
+                            <TextBlock Text="{x:Bind UnitsInStockString}"
+                                   Width="80" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </RelativePanel>
     </Grid>
 </Page>
